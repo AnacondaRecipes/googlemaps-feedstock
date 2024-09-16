@@ -6,13 +6,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/googlemaps-{{ version }}.tar.gz
-  sha256: 3055fcbb1aa262a9159b589b5e6af762b10e80634ae11c59495bd44867e47d88
+  url: https://github.com/googlemaps/google-maps-services-python/archive/refs/tags/v4.10.0.tar.gz
+  sha256: cc07f739731ba4e0a4586543ad14470695addff8f30840748b9c3b89e393aa36
 
 build:
   skip: True  # [py<35]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   host:
@@ -30,8 +30,13 @@ test:
     - googlemaps
   commands:
     - pip check
+    - pytest
   requires:
     - pip
+    - pytest
+    - responses
+  source_files:
+    - tests
 
 about:
   home: https://github.com/googlemaps/google-maps-services-python

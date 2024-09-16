@@ -37,6 +37,7 @@ about:
   home: https://github.com/googlemaps/google-maps-services-python
   summary: Python client library for Google Maps Platform
   license: Apache-2.0
+  license_family: APACHE
   license_file: LICENSE  
   description: |
     Use Python? Want to geocode something? Looking for directions? Maybe matrices of directions? This library brings the Google Maps API Web Services to your Python application. Analytics

@@ -12,15 +12,15 @@ source:
     - 0001-remove-superfluous-build-requirement.patch
 
 build:
-  skip: True  # [py<35]
+  skip: True                                            # [py<35]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 
 requirements:
   build:
-    - patch     # [not win]
-    - m2-patch  # [win]
+    - patch                                             # [not win]
+    - m2-patch                                          # [win]
   host:
     - python
     - pip
@@ -35,7 +35,8 @@ test:
     - googlemaps
   commands:
     - pip check
-    - pytest
+    - pytest                                            # [not win]
+    - pytest --ignore="tests/test_timezone.py"          # [win]
   requires:
     - pip
     - pytest

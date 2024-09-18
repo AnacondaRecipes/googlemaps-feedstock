@@ -8,6 +8,8 @@ package:
 source:
   url: https://github.com/googlemaps/google-maps-services-python/archive/refs/tags/v4.10.0.tar.gz
   sha256: cc07f739731ba4e0a4586543ad14470695addff8f30840748b9c3b89e393aa36
+  patches:
+    - 0001-remove-superfluous-build-requirement.patch
 
 build:
   skip: True  # [py<35]
@@ -20,7 +22,6 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - requests >=2.20.0,<3.0
   run:
     - python
     - requests >=2.20.0,<3.0
@@ -46,7 +47,7 @@ about:
   license_file: LICENSE  
   description: |
     Use Python? Want to geocode something? Looking for directions? Maybe matrices of directions? This library brings the Google Maps API Web Services to your Python application. Analytics
-  doc_url: https://github.com/googlemaps/google-maps-services-python
+  doc_url: https://googlemaps.github.io/google-maps-services-python/docs/index.html
   dev_url: https://github.com/googlemaps/google-maps-services-python
 
 extra:

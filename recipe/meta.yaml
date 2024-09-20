@@ -6,21 +6,29 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/googlemaps-{{ version }}.tar.gz
-  sha256: 3055fcbb1aa262a9159b589b5e6af762b10e80634ae11c59495bd44867e47d88
+  # Use GH release archive for tests
+  url: https://github.com/googlemaps/google-maps-services-python/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: cc07f739731ba4e0a4586543ad14470695addff8f30840748b9c3b89e393aa36
+  patches:
+    - patches/0001-remove-superfluous-build-dependency.patch
 
 build:
-  noarch: python
+  skip: True                                                      # [py<35]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
+
 
 requirements:
+  build:
+    - patch                                                       # [not win]
+    - m2-patch                                                    # [win]
   host:
-    - python >=3.7
-    - requests >=2.20.0,<3.0
+    - python
     - pip
+    - setuptools
+    - wheel
   run:
-    - python >=3.7
+    - python
     - requests >=2.20.0,<3.0
 
 test:
@@ -28,17 +36,26 @@ test:
     - googlemaps
   commands:
     - pip check
+    - pytest                                                      # [not win]
+    # test_los_angeles_with_no_timestamp raises OverflowErrorfails on win with OSError failure
+    # because the timestamp value used 1680 is not between 1970 and 2038.
+    - pytest -k "not test_los_angeles_with_no_timestamp"           # [win]
   requires:
     - pip
+    - pytest
+    - responses
+  source_files:
+    - tests
 
 about:
   home: https://github.com/googlemaps/google-maps-services-python
   summary: Python client library for Google Maps Platform
   license: Apache-2.0
+  license_family: APACHE
   license_file: LICENSE  
   description: |
     Use Python? Want to geocode something? Looking for directions? Maybe matrices of directions? This library brings the Google Maps API Web Services to your Python application. Analytics
-  doc_url: https://github.com/googlemaps/google-maps-services-python
+  doc_url: https://googlemaps.github.io/google-maps-services-python/docs/index.html
   dev_url: https://github.com/googlemaps/google-maps-services-python
 
 extra:

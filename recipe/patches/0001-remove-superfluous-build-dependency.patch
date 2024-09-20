@@ -1,0 +1,25 @@
+From 029d501bf87772787591dded5d7fa2af84b6ae49 Mon Sep 17 00:00:00 2001
+From: Mohamed Sentissi <msentissi@anaconda.com>
+Date: Thu, 19 Sep 2024 13:12:33 -0400
+Subject: [PATCH] remove superfluous build dependency
+
+---
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index df9f32f..7768e32 100644
+--- a/setup.py
++++ b/setup.py
+@@ -35,7 +35,7 @@ setup(
+     packages=["googlemaps"],
+     license="Apache 2.0",
+     platforms="Posix; MacOS X; Windows",
+-    setup_requires=requirements,
++    setup_requires=[],
+     install_requires=requirements,
+     classifiers=[
+         "Development Status :: 4 - Beta",
+-- 
+2.45.2
+
